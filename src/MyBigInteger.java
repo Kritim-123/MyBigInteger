@@ -4,7 +4,9 @@ import java.util.LinkedList;
 public class MyBigInteger {
     IntegerNode sign;
 
+    public MyBigInteger(){
 
+    }
     public MyBigInteger(String n) {
         sign = new IntegerNode(0);
         int length = n.length();
@@ -41,6 +43,21 @@ public class MyBigInteger {
 
             numberOfBlock--;
         }
+    }
+
+    public MyBigInteger(MyBigInteger num){
+        IntegerNode trackerOriginal = new IntegerNode(num.sign.digits);
+        MyBigInteger copy = new MyBigInteger();
+
+        copy.sign = trackerOriginal;
+        IntegerNode trackerDuplicate = copy.sign;
+
+        while(trackerOriginal.higher_position != null){ // Using two pointers on new Integer and old Integer
+            trackerDuplicate.higher_position = trackerOriginal.higher_position;
+            trackerOriginal = trackerOriginal.higher_position;
+            trackerDuplicate = trackerDuplicate.higher_position;
+        }
+
     }
 
     public class IntegerNode{
