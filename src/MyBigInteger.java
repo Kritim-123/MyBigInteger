@@ -59,6 +59,23 @@ public class MyBigInteger {
 
     }
 
+    @Override
+    public String toString() {
+        StringBuilder stringRep = new StringBuilder();
+        IntegerNode tracker = sign.higher_position;
+
+        while(tracker!= null){
+            stringRep.insert(0, String.format("%04d", tracker.digits));
+            tracker = tracker.higher_position;
+        }
+
+        if(sign.digits < 0){
+            stringRep.insert(0, '-');
+        }
+
+        return stringRep.toString();
+    }
+
     public class IntegerNode{
         int digits;
         IntegerNode higher_position;
