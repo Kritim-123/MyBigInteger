@@ -47,10 +47,9 @@ public class MyBigInteger {
 
     public MyBigInteger(MyBigInteger num){
         IntegerNode trackerOriginal = new IntegerNode(num.sign.digits);
-        MyBigInteger copy = new MyBigInteger();
 
-        copy.sign = trackerOriginal;
-        IntegerNode trackerDuplicate = copy.sign;
+        this.sign = trackerOriginal;
+        IntegerNode trackerDuplicate = this.sign;
 
         while(trackerOriginal.higher_position != null){ // Using two pointers on new Integer and old Integer
             trackerDuplicate.higher_position = trackerOriginal.higher_position;
