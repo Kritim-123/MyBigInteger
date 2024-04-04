@@ -11,7 +11,6 @@ public class MyBigInteger {
         sign = new IntegerNode(0);
         int length = n.length();
         int startPositon = 0;
-        IntegerNode tracker = sign;
 
         int offset = length % 4;
         int endPosition = offset;
@@ -32,11 +31,11 @@ public class MyBigInteger {
         int numberOfBlock = (int) Math.ceil(length/4); // Will give us how many Blocks there will be
 
 
-        while(numberOfBlock>0){
+        while(numberOfBlock>=0){
 
             IntegerNode newNode = new IntegerNode(Integer.parseInt(n.substring(startPositon, endPosition)));
-            tracker.higher_position = newNode;
-            tracker = newNode; // Iterating through the LinkedList
+            newNode.higher_position = sign.higher_position;
+            sign.higher_position = newNode;// Iterating through the LinkedList
 
             startPositon = endPosition;
             endPosition+=4; //Because four element in a block
