@@ -45,6 +45,7 @@ public class MyBigInteger {
         }
     }
 
+    //
     public MyBigInteger(MyBigInteger num){
         IntegerNode trackerOriginal = new IntegerNode(num.sign.digits);
 
@@ -88,7 +89,17 @@ public class MyBigInteger {
     }
 
     public static MyBigInteger add(MyBigInteger num1, MyBigInteger num2){
-        
+
+        MyBigInteger afterAddition = new MyBigInteger();
+        if(num1.sign.digits == num2.sign.digits){
+            if(num1.sign.digits == -1){
+                afterAddition.sign.digits = -1;
+            }
+            else{
+                afterAddition.sign.digits = 0;
+            }
+
+        }
     }
 
     public class IntegerNode{
