@@ -32,7 +32,7 @@ public class MyBigInteger {
         int numberOfBlock = (int) Math.ceil(length/4); // Will give us how many Blocks there will be
 
 
-        while(numberOfBlock>0){
+        while(numberOfBlock>=0){
 
             IntegerNode newNode = new IntegerNode(Integer.parseInt(n.substring(startPositon, endPosition)));
             tracker.higher_position = newNode;
@@ -74,6 +74,21 @@ public class MyBigInteger {
         }
 
         return stringRep.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+       if(obj instanceof MyBigInteger){
+           MyBigInteger otherInteger = (MyBigInteger) obj;
+           return otherInteger.toString().equals(this.toString()); // Using toString equals to check if their String
+           // representation is equal or not
+       }
+
+       return false;
+    }
+
+    public static MyBigInteger add(MyBigInteger num1, MyBigInteger num2){
+        
     }
 
     public class IntegerNode{
