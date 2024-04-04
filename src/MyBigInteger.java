@@ -62,19 +62,25 @@ public class MyBigInteger {
 
     @Override
     public String toString() {
-        StringBuilder stringRep = new StringBuilder();
-        IntegerNode tracker = sign.higher_position;
-
-        while(tracker!= null){
-            stringRep.insert(0, String.format("%04d", tracker.digits));
-            tracker = tracker.higher_position;
+        StringBuilder result = new StringBuilder();
+        IntegerNode current = sign.higher_position;
+        // First node might have less than four digits and shouldn't be padded with zeros
+        boolean firstNode = true;
+        while (current != null) {
+            if (firstNode) {
+                result.insert(0, current.digits); // No padding or absolute value for the first group
+                firstNode = false;
+            } else {
+                // Using Math.abs() to avoid negative sign on individual groups and pad with zeros if necessary
+                result.insert(0, String.format("%04d", Math.abs(current.digits)));
+            }
+            current = current.higher_position;
         }
-
-        if(sign.digits < 0){
-            stringRep.insert(0, '-');
+        // If the overall number is negative, append the negative sign at the start of the StringBuilder
+        if (sign.digits < 0) {
+            result.insert(0, '-');
         }
-
-        return stringRep.toString();
+        return result.toString();
     }
 
     @Override
@@ -91,9 +97,11 @@ public class MyBigInteger {
     public static MyBigInteger add(MyBigInteger num1, MyBigInteger num2){
 
         MyBigInteger afterAddition = new MyBigInteger();
+        IntegerNode tracker = new IntegerNode(0);
         if(num1.sign.digits == num2.sign.digits){
             if(num1.sign.digits == -1){
                 afterAddition.sign.digits = -1;
+
             }
             else{
                 afterAddition.sign.digits = 0;
@@ -102,7 +110,7 @@ public class MyBigInteger {
         }
     }
 
-    public class IntegerNode{
+    public static class IntegerNode{
         int digits;
         IntegerNode higher_position;
 
