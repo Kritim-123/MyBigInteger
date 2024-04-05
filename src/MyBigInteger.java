@@ -11,29 +11,26 @@ public class MyBigInteger {
         sign = new IntegerNode(0);
         int length = n.length();
         int startPositon = 0;
-
-        int offset = length % 4;
-        int endPosition = offset;
+        int offset = length % 4; // Either 0 or 1, 2,3
+//        int endPosition = offset;
 
         if(n.charAt(0) == '-'){
             sign.digits = -1; // Indicating that the number is negative
             length--;
-            offset = length %4;
+            offset = length %4; // Either 0, 1, 2, 3
             startPositon = 1;
-            endPosition = offset + 1; // For the case like "-1234 1576 3190"
+//            endPosition = offset + 1; // For the case like "-123 1576 3190"  startPosition + (4- offset) = (4-1) =
         }
-
-        if(endPosition == startPositon){
-            endPosition = startPositon + 4; // For the case like "1234 1576 3190"
-        }
+        int numberOfBlock = (offset == 0) ? length/4 : (int) (length/4) + 1;
 
 
-        int numberOfBlock = (int) Math.ceil(length/4); // Will give us how many Blocks there will be
+        int endPosition = startPositon + (offset); // For the case like "1234 1576 3190"
 
 
-        while(numberOfBlock>=0){
+        while(numberOfBlock>0){
 
             IntegerNode newNode = new IntegerNode(Integer.parseInt(n.substring(startPositon, endPosition)));
+            n.substring(startPositon, endPosition);
             newNode.higher_position = sign.higher_position;
             sign.higher_position = newNode;// Iterating through the LinkedList
 
@@ -63,17 +60,17 @@ public class MyBigInteger {
     public String toString() {
         StringBuilder result = new StringBuilder();
         IntegerNode current = sign.higher_position;
-        // First node might have less than four digits and shouldn't be padded with zeros
-        boolean firstNode = true;
+
         while (current != null) {
-            if (firstNode) {
+            if (current.higher_position == null) {
                 result.insert(0, current.digits); // No padding or absolute value for the first group
-                firstNode = false;
+
             } else {
                 // Using Math.abs() to avoid negative sign on individual groups and pad with zeros if necessary
                 result.insert(0, String.format("%04d", Math.abs(current.digits)));
             }
             current = current.higher_position;
+
         }
         // If the overall number is negative, append the negative sign at the start of the StringBuilder
         if (sign.digits < 0) {
@@ -107,6 +104,8 @@ public class MyBigInteger {
             }
 
         }
+
+        return afterAddition;
     }
 
     public static class IntegerNode{
