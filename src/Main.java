@@ -2,7 +2,7 @@ public class Main {
     public static void main(String[] args) {
         // Test cases
         MyBigInteger num1 = new MyBigInteger("839947462729219484028272");
-        MyBigInteger num2 = new MyBigInteger("-839947462729219484028000");
+        MyBigInteger num2 = new MyBigInteger("839947462729219484028000");
         MyBigInteger sum1 = MyBigInteger.add(num1, num2);
         System.out.println("The sum is " + sum1 + ".");
 

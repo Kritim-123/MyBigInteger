@@ -34,7 +34,6 @@ public class MyBigInteger {
 
         while(numberOfBlock>0){
 
-            System.out.println(n.substring(startPositon, endPosition));
             IntegerNode newNode = new IntegerNode(Integer.parseInt(n.substring(startPositon, endPosition)));
             newNode.higher_position = sign.higher_position;
             sign.higher_position = newNode;// Iterating through the LinkedList
@@ -48,21 +47,7 @@ public class MyBigInteger {
 
     //
     public MyBigInteger(MyBigInteger num){
-//        IntegerNode trackerOriginal = new IntegerNode(num.sign.digits);
-//
-//        this.sign = trackerOriginal;
-//        IntegerNode trackerDuplicate = this.sign;
-//
-//        while(trackerOriginal.higher_position != null){ // Using two pointers on new Integer and old Integer
-//            trackerDuplicate.higher_position = trackerOriginal.higher_position;
-//            trackerOriginal = trackerOriginal.higher_position;
-//            trackerDuplicate = trackerDuplicate.higher_position;
-//        }
 
-
-
-
-                 // Initialize the sign node
          this.sign = new IntegerNode();
          this.sign.digits = num.sign.digits;
 
